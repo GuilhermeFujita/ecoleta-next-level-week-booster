@@ -41,7 +41,23 @@ const Points = () => {
               latitudeDelta: 0.014,
               longitudeDelta: 0.014,
             }}
-          ></MapView>
+          >
+            <Marker
+              style={styles.mapMarker}
+              coordinate={{ latitude: -23.5535133, longitude: -46.6222821 }}
+            >
+              <View style={styles.mapMarkerContainer}>
+                <Image
+                  style={styles.mapMarkerImage}
+                  source={{
+                    uri:
+                      "https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+                  }}
+                />
+                <Text style={styles.mapMarkerTitle}>Mercado</Text>
+              </View>
+            </Marker>
+          </MapView>
         </View>
       </View>
       <View style={styles.itemsContainer}>
