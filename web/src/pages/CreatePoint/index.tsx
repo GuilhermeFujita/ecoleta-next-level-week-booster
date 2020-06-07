@@ -5,6 +5,7 @@ import { Map, TileLayer, Marker } from "react-leaflet";
 import api from "../../services/api";
 import { LeafletMouseEvent } from "leaflet";
 import axios from "axios";
+import Dropzone from "../../components/Dropzone";
 
 import "./styles.css";
 
@@ -164,6 +165,8 @@ const CreatePoint = () => {
         <h1>
           Cadastro do <br /> ponto de coleta
         </h1>
+
+        <Dropzone />
 
         <fieldset>
           <legend>
