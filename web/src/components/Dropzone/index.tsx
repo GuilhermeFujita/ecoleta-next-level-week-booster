@@ -4,16 +4,24 @@ import { FiUpload } from "react-icons/fi";
 
 import "./styles.css";
 
-const Dropzone = () => {
+interface Props {
+  onFileUploaded: (file: File) => void;
+}
+
+const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
   const [selectedFileUrl, setselectedFileUrl] = useState("");
 
-  const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
 
-    const fileurl = URL.createObjectURL(file);
+      const fileurl = URL.createObjectURL(file);
 
-    setselectedFileUrl(fileurl);
-  }, []);
+      setselectedFileUrl(fileurl);
+      onFileUploaded(file);
+    },
+    [onFileUploaded]
+  );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: "image/*",
