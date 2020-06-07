@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Constants from "expo-constants";
 import MapView, { Marker } from "react-native-maps";
 import { SvgUri } from "react-native-svg";
@@ -31,6 +31,11 @@ interface Point {
   longitude: number;
 }
 
+interface Params {
+  city: string;
+  uf: string;
+}
+
 const Points = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [points, setPoints] = useState<Point[]>([]);
@@ -42,6 +47,9 @@ const Points = () => {
   ]);
 
   const navigation = useNavigation();
+  const routes = useRoute();
+
+  const routeParams = routes.params as Params;
 
   useEffect(() => {
     api.get("items").then((response) => {
@@ -74,15 +82,15 @@ const Points = () => {
     api
       .get("points", {
         params: {
-          city: "Adamantina",
-          uf: "SP",
-          items: [1, 2],
+          city: routeParams.city,
+          uf: routeParams.uf,
+          items: selectedItems,
         },
       })
       .then((response) => {
         setPoints(response.data);
       });
-  }, []);
+  }, [selectedItems]);
 
   function handleNavigateBack() {
     navigation.goBack();
